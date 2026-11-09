@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>LYNQ — Smart NFC Cards & Digital Portfolio</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234472C4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>">
+<style>
+:root {
+  --bg: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+  --bg-solid: #f1f5f9;
+  --card-bg: #ffffff;
+  --text: #0f172a;
+  --sub: #475569;
+  --accent: #2563eb;
+  --accent-light: #eff6ff;
+  --border: #cbd5e1;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+[data-theme="dark"] {
+  --bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-solid: #0f172a;
+  --card-bg: #151c2c;
+  --text: #f8fafc;
+  --sub: #94a3b8;
+  --accent: #3b82f6;
+  --accent-light: rgba(59, 130, 246, 0.15);
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; min-height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Arial, sans-serif;
+  background: var(--bg-solid);
+  background-image: var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 6%;
+  background: var(--card-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  font-family: var(--mono);
+}
+.logo svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.theme-toggle-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: var(--mono);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.theme-toggle-btn:hover {
+  background: var(--accent-light);
+}
+
+.hero {
+  padding: 40px 6% 30px;
+  text-align: center;
+  max-width: 950px;
+  margin: 0 auto;
+}
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  display: block;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 42px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.hero p {
+  font-size: clamp(14px, 2.8vw, 16.5px);
+  color: var(--sub);
+  margin-bottom: 24px;
+}
+
+.interactive-display-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin: 24px auto 16px;
+  max-width: 850px;
+}
+
+.card-preview-wrapper {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 320px;
+  flex: 1 1 280px;
+}
+.nfc-card-real {
+  width: 100%;
+  aspect-ratio: 1.586 / 1;
+  background: #111113;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.08);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease-out, background 0.3s ease, color 0.3s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  user-select: none;
+  color: #ffffff;
+}
+
+.nfc-symbol {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+.nfc-symbol svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.card-brand {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.card-brand svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+}
+.card-brand span {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: currentColor;
+}
+
+.phone-prototype-frame {
+  width: 260px;
+  height: 520px;
+  background: #1e293b;
+  border-radius: 36px;
+  padding: 8px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+  border: 4px solid #0f172a;
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+.phone-notch {
+  width: 90px;
+  height: 14px;
+  background: #0f172a;
+  border-radius: 0 0 10px 10px;
+  margin: 0 auto 6px;
+  flex: none;
+  z-index: 10;
+}
+.iframe-viewport-container {
+  width: 100%;
+  height: calc(100% - 20px);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;
+}
+.phone-screen-iframe {
+  width: 375px;
+  height: 750px;
+  border: none;
+  transform: scale(0.65);
+  transform-origin: 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.color-swatch-picker {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 16px auto 0;
+}
+.swatch-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--card-bg);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.swatch-btn:hover, .swatch-btn.active {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.section {
+  padding: 40px 6%;
+  max-width: 950px;
+  margin: 0 auto;
+}
+.section-header {
+  margin-bottom: 24px;
+}
+.section-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 4px;
+}
+.section-title {
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+.tech-card {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.tech-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.tech-card p {
+  font-size: 13px;
+  color: var(--sub);
+}
+
+.accordion-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.accordion-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.accordion-trigger {
+  width: 100%;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion-trigger::after {
+  content: "+";
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--accent);
+}
+.accordion-item.open .accordion-trigger::after {
+  transform: rotate(45deg);
+}
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 18px;
+  font-size: 13px;
+  color: var(--sub);
+}
+.accordion-item.open .accordion-content {
+  max-height: 200px;
+  padding: 0 18px 14px 18px;
+}
+
+.price-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 20px;
+  text-align: center;
+  max-width: 420px;
+  margin: 0 auto;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.price {
+  font-family: var(--mono);
+  font-size: clamp(30px, 5vw, 38px);
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.price span {
+  font-size: 13px;
+  color: var(--sub);
+  font-weight: 400;
+}
+.spec-list {
+  list-style: none;
+  margin-bottom: 20px;
+  text-align: left;
+  border-top: 1px dashed var(--border);
+  padding-top: 14px;
+}
+.spec-list li {
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  color: var(--sub);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.spec-label { color: var(--text); font-weight: 500; }
+.spec-val { font-family: var(--mono); font-size: 11.5px; color: var(--accent); }
+
+footer {
+  text-align: center;
+  padding: 20px 6%;
+  font-size: 12px;
+  color: var(--sub);
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  background: var(--card-bg);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+@media (min-width: 600px) {
+  .navbar { padding: 16px 8%; }
+  .hero { padding: 60px 8% 40px; }
+  .section { padding-top: 45px; padding-bottom: 45px; }
+}
+</style>
+</head>
+<body data-theme="light">
+
+<nav class="navbar">
+  <div class="logo">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    LYNQ
+  </div>
+  <div class="nav-actions">
+    <span class="badge">NFC ECOSYSTEM</span>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">Dark Mode</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="hero-tag">Hardware &amp; Cloud Platform</span>
+  <h1>Physical NFC Cards with Cloud Profile Hosting</h1>
+  <p>Tap a physical card to load a customizable, dynamic digital portfolio instantly on any mobile browser.</p>
+
+  <div class="interactive-display-row">
+    <div class="card-preview-wrapper">
+      <div class="nfc-card-real" id="interactiveCard">
+        <div class="nfc-symbol">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 6a9 9 0 0 1 6.36 2.64M14.12 8.88a6 6 0 0 1 4.24 1.76M16.24 11.76a3 3 0 0 1 2.12.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="card-brand">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          <span>LYNQ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone-prototype-frame">
+      <div class="phone-notch"></div>
+      <div class="iframe-viewport-container">
+        <iframe class="phone-screen-iframe" src="https://lynq.jrbr.workers.dev/?card=LYNQ01" title="LYNQ Card Profile Preview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-family: var(--mono); font-size: 11px; color: var(--sub); margin-top: 12px;">Click a swatch to preview card color:</div>
+  <div class="color-swatch-picker" id="swatchPicker"></div>
+</section>
+
+<section class="section" id="about">
+  <div class="section-header">
+    <span class="section-tag">01 / Overview</span>
+    <h2 class="section-title">System Architecture</h2>
+  </div>
+  <div class="grid">
+    <div class="tech-card">
+      <h3>NFC Chip Integration</h3>
+      <p>Embedded microchip programmed with a unique identifier. Requires zero batteries or charging.</p>
+    </div>
+    <div class="tech-card">
+      <h3>Cloud Database Sync</h3>
+      <p>Profile data updates in real time. Modify your links or text anytime without changing your physical card.</p>
+    </div>
+    <div class="tech-card">
+      <h3>Visitor Note Relay</h3>
+      <p>Visitors who tap your card can transmit direct inquiries or contact notes straight to your private dashboard inbox.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="setup">
+  <div class="section-header">
+    <span class="section-tag">02 / Documentation</span>
+    <h2 class="section-title">Setup &amp; Troubleshooting Guide</h2>
+  </div>
+
+  <div class="accordion-group">
+    <div class="accordion-item open">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">How do I claim and set up my card?</button>
+      <div class="accordion-content">
+        Tap your physical LYNQ card against the back of an iPhone or Android phone. When the link loads, click the Sign In button at the bottom to connect your Google account and link the card to your profile permanently.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">Why won't the Sign In button work sometimes?</button>
+      <div class="accordion-content">
+        Social media apps like Messenger or Facebook open links inside restrictive internal browser windows that block authentication popups. This can temporarily hide your editing privileges.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">How do I fix authentication or view issues?</button>
+      <div class="accordion-content">
+        Tap the menu dots in the top right corner of your app and select "Open in Chrome" or "Open in Safari". Alternatively, copy your card link and paste it into a private or Incognito browser tab.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="local">
+  <div class="section-header">
+    <span class="section-tag">03 / Specifications</span>
+    <h2 class="section-title">Product Pricing</h2>
+  </div>
+  
+  <div class="price-card">
+    <span class="badge">PHYSICAL CARD UNIT</span>
+    <div class="price">₱169 <span>/ one-time</span></div>
+    <ul class="spec-list">
+      <li><span class="spec-label">Subscription Fee</span> <span class="spec-val">₱0 (Lifetime Hosting)</span></li>
+      <li><span class="spec-label">Chip Standard</span> <span class="spec-val">ISO/IEC 14443 Universal</span></li>
+      <li><span class="spec-label">Device Support</span> <span class="spec-val">iOS &amp; Android Universal</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 LYNQ Systems — All rights reserved</p>
+</footer>
+
+<script>
+const COLOR_OPTIONS = [
+  { name: 'Obsidian Black', bg: '#111113', text: '#ffffff' },
+  { name: 'Clean White', bg: '#f8fafc', text: '#111113' },
+  { name: 'Deep Navy', bg: '#0f2547', text: '#ffffff' },
+  { name: 'Royal Blue', bg: '#1d5bd8', text: '#ffffff' },
+  { name: 'Forest Green', bg: '#1c4228', text: '#ffffff' },
+  { name: 'Sage Green', bg: '#86a382', text: '#ffffff' },
+  { name: 'Burgundy', bg: '#7a1428', text: '#ffffff' },
+  { name: 'Soft Pink', bg: '#e890a8', text: '#ffffff' },
+  { name: 'Amber Gold', bg: '#e6a117', text: '#ffffff' },
+  { name: 'Sunset Orange', bg: '#e65c19', text: '#ffffff' },
+  { name: 'Slate Purple', bg: '#7b6c9e', text: '#ffffff' },
+  { name: 'Cool Gray', bg: '#818a99', text: '#ffffff' }
+];
+
+const card = document.getElementById('interactiveCard');
+const swatchPicker = document.getElementById('swatchPicker');
+
+COLOR_OPTIONS.forEach((col, idx) => {
+  const btn = document.createElement('button');
+  btn.className = 'swatch-btn' + (idx === 0 ? ' active' : '');
+  btn.style.backgroundColor = col.bg;
+  btn.title = col.name;
+  btn.onclick = () => {
+    document.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    card.style.backgroundColor = col.bg;
+    card.style.color = col.text;
+  };
+  swatchPicker.appendChild(btn);
+});
+
+function toggleTheme() {
+  const body = document.body;
+  const btn = document.getElementById('themeToggleBtn');
+  if (body.getAttribute('data-theme') === 'light') {
+    body.setAttribute('data-theme', 'dark');
+    btn.textContent = 'Light Mode';
+  } else {
+    body.setAttribute('data-theme', 'light');
+    btn.textContent = 'Dark Mode';
+  }
+}
+
+function toggleAccordion(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  
+  document.querySelectorAll('.accordion-item').forEach(el => {
+    el.classList.remove('open');
+  });
+  
+  if (!isOpen) {
+    item.classList.add('open');
+  }
+}
+
+const wrapper = card.parentElement;
+wrapper.addEventListener('mousemove', (e) => {
+  const rect = wrapper.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  
+  const rotateX = (-y / rect.height) * 18;
+  const rotateY = (x / rect.width) * 18;
+  
+  card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+});
+
+wrapper.addEventListener('mouseleave', () => {
+  card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+});
+</script>
+
+</body>
+</html>
