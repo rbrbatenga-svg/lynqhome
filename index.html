@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>LYNQ — Smart NFC Cards & Digital Portfolio</title>
+<meta name="description" content="LYNQ is a tap-to-share NFC card that opens your personal page: links, contact details, payment QR and more. One-time price, no subscription, no app needed.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234472C4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>">
 <style>
 :root {
@@ -486,6 +487,68 @@ footer {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
+/* ---------- Selling sections ---------- */
+.section-lead { color: var(--sub); font-size: 14.5px; max-width: 640px; margin-top: 6px; }
+.chips-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: -6px auto 8px; max-width: 640px; }
+.chip {
+  font-size: 12.5px; font-weight: 600; color: var(--text);
+  background: var(--glass); border: 1px solid var(--glass-border); box-shadow: var(--glass-hi);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  padding: 7px 14px; border-radius: 999px;
+}
+.icon-tile {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 14px; margin-bottom: 12px;
+  color: var(--accent); background: var(--accent-light); border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-hi);
+}
+.icon-tile svg { width: 20px; height: 20px; }
+.tech-card h3 { font-size: 15.5px; }
+.tech-card p { font-size: 13.5px; line-height: 1.55; }
+
+.feature-panel {
+  background: var(--glass); border: 1px solid var(--glass-border); border-radius: 30px;
+  box-shadow: var(--glass-shadow), var(--glass-hi);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+  padding: 26px 22px;
+}
+.feature-group + .feature-group { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.feature-group h3 { font-size: 13px; font-weight: 700; color: var(--sub); margin-bottom: 10px; }
+.feature-group .chips-row { justify-content: flex-start; margin: 0; max-width: none; }
+.feature-group .chip { font-weight: 500; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.step {
+  background: var(--glass); border: 1px solid var(--glass-border); border-radius: 26px; padding: 24px;
+  box-shadow: var(--glass-shadow), var(--glass-hi);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+.step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; margin-bottom: 12px;
+  font-family: var(--mono); font-weight: 700; font-size: 14px; color: #fff;
+  background: linear-gradient(135deg, #22d3ee, #6366f1 55%, #c026d3);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+}
+.step h3 { font-size: 15.5px; margin-bottom: 6px; }
+.step p { font-size: 13.5px; color: var(--sub); line-height: 1.55; }
+
+.compare-card {
+  background: var(--glass); border: 1px solid var(--glass-border); border-radius: 28px;
+  box-shadow: var(--glass-shadow), var(--glass-hi);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+  overflow-x: auto;
+}
+.compare-card table { width: 100%; border-collapse: collapse; min-width: 480px; font-size: 13.5px; }
+.compare-card th, .compare-card td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); }
+.compare-card tr:last-child td { border-bottom: none; }
+.compare-card th { font-size: 12.5px; color: var(--sub); font-weight: 700; }
+.compare-card td:first-child { font-weight: 600; color: var(--text); }
+.compare-card td { color: var(--sub); }
+.compare-card .win { color: var(--accent); font-weight: 600; }
+
+.price-note { font-size: 13px; color: var(--sub); margin: 0 auto 14px; max-width: 320px; }
+
 /* Phones: show the colour swatches above the card */
 @media (max-width: 640px) {
   .hero { display: flex; flex-direction: column; align-items: center; }
@@ -539,6 +602,12 @@ footer {
   </div>
   <h1>Physical NFC Cards with Cloud Profile Hosting</h1>
   <p>Tap a physical card to load a customizable, dynamic digital portfolio instantly on any mobile browser.</p>
+  <div class="chips-row">
+    <span class="chip">No app needed</span>
+    <span class="chip">No subscription</span>
+    <span class="chip">iPhone &amp; Android</span>
+    <span class="chip">Edit anytime</span>
+  </div>
 
   <div class="interactive-display-row">
     <div class="card-preview-wrapper">
@@ -576,10 +645,190 @@ footer {
   </div>
 </section>
 
+<section class="section" id="why">
+  <div class="section-header">
+    <span class="section-tag">01 / Why LYNQ</span>
+    <h2 class="section-title">Why people get a LYNQ card</h2>
+    <p class="section-lead">A paper card gets lost in a drawer. A LYNQ card puts everything you want people to know about you on their phone in one tap.</p>
+  </div>
+  <div class="grid">
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+      <h3>Make a first impression in one tap</h3>
+      <p>Your links, photos, contact details and payment QR open the moment someone taps your card. No spelling out usernames, no “what’s your Instagram again?”</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
+      <h3>Update it forever, never reprint</h3>
+      <p>New job, number or handle? Edit your page once and every future tap shows the latest version. The card stays the same.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+      <h3>Nothing to install for them</h3>
+      <p>People you meet just tap their phone to your card and your page opens in their browser. No app, no download, no QR to scan.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+      <h3>Pay once, keep it</h3>
+      <p>₱169 one time. No subscription, no hosting fees, no renewals. Your page stays online.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+      <h3>Only you can edit your page</h3>
+      <p>You claim your card with your Google account. After that, nobody else can change what your page says.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+      <h3>Get messages from people you meet</h3>
+      <p>Visitors can leave you a note right from your page. It lands in your private inbox, so a new lead or friend never slips away.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="uses">
+  <div class="section-header">
+    <span class="section-tag">02 / Use cases</span>
+    <h2 class="section-title">Made for how you meet people</h2>
+    <p class="section-lead">Work meetings, school events or a night out. If you share your details more than once, LYNQ saves you the effort.</p>
+  </div>
+  <div class="grid">
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+      <h3>Business and work</h3>
+      <p>Hand over a card that opens your portfolio, work experience and LinkedIn, with a Save contact button. Clients keep your number the moment they meet you.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <h3>Networking and events</h3>
+      <p>Career fairs, conferences, org mixers. Skip the stack of paper cards. One tap and they have your socials, your school and what you do.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+      <h3>Parties and socials</h3>
+      <p>Met someone fun? Tap instead of typing out your handle. Share Instagram, TikTok and Messenger in one go and keep the night going.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+      <h3>Students and job hunters</h3>
+      <p>Show your education roadmap, achievements, languages and hobbies. Stand out at interviews, internships and scholarship panels.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+      <h3>Creators and freelancers</h3>
+      <p>Photographers, designers, editors, streamers: put your best links and a photo gallery in one place, on a card people remember.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+      <h3>Sellers and small shops</h3>
+      <p>Add a GCash or Maya payment QR to your page so customers can pay and follow your shop right after they tap.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-header">
+    <span class="section-tag">03 / Features</span>
+    <h2 class="section-title">Everything your page can hold</h2>
+    <p class="section-lead">Fill in only what you want. Your page shows just the sections you use.</p>
+  </div>
+  <div class="feature-panel">
+    <div class="feature-group">
+      <h3>Links and contact</h3>
+      <div class="chips-row">
+        <span class="chip">Instagram</span>
+        <span class="chip">Facebook</span>
+        <span class="chip">WhatsApp</span>
+        <span class="chip">Messenger</span>
+        <span class="chip">Viber</span>
+        <span class="chip">Telegram</span>
+        <span class="chip">X / Twitter</span>
+        <span class="chip">TikTok</span>
+        <span class="chip">YouTube</span>
+        <span class="chip">LinkedIn</span>
+        <span class="chip">GitHub</span>
+        <span class="chip">Any website</span>
+        <span class="chip">Save to contacts</span>
+        <span class="chip">Call button</span>
+        <span class="chip">Email button</span>
+      </div>
+    </div>
+    <div class="feature-group">
+      <h3>About you</h3>
+      <div class="chips-row">
+        <span class="chip">Profile photo</span>
+        <span class="chip">Cover photo</span>
+        <span class="chip">Bio</span>
+        <span class="chip">Work experience</span>
+        <span class="chip">Education roadmap</span>
+        <span class="chip">Languages</span>
+        <span class="chip">Hobbies</span>
+        <span class="chip">City and country</span>
+        <span class="chip">Photo gallery (3 photos)</span>
+      </div>
+    </div>
+    <div class="feature-group">
+      <h3>Money, messages and style</h3>
+      <div class="chips-row">
+        <span class="chip">Payment QR (GCash, Maya or any)</span>
+        <span class="chip">Visitor note inbox</span>
+        <span class="chip">Share button</span>
+        <span class="chip">8 color themes, including Pride</span>
+        <span class="chip">List or app-grid layout</span>
+        <span class="chip">Brand or theme icon colors</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="section-header">
+    <span class="section-tag">04 / How it works</span>
+    <h2 class="section-title">Live in three steps</h2>
+    <p class="section-lead">Most people finish before their coffee gets cold.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">1</span>
+      <h3>Tap your card</h3>
+      <p>Hold the card to the back of your phone. Your unclaimed page opens right away.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <h3>Sign in with Google</h3>
+      <p>One sign-in links the card to you for good. It takes a few seconds.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <h3>Build and publish</h3>
+      <p>Add your links, photo and details, then tap Save &amp; Publish. Now anyone who taps your card sees your page.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="compare">
+  <div class="section-header">
+    <span class="section-tag">05 / Comparison</span>
+    <h2 class="section-title">LYNQ vs a paper card</h2>
+  </div>
+  <div class="compare-card">
+    <table>
+      <thead><tr><th></th><th>Paper card</th><th>LYNQ</th></tr></thead>
+      <tbody>
+        <tr><td>Change your info</td><td>Print a new card</td><td class="win">Edit your page, live instantly</td></tr>
+        <tr><td>Share your socials</td><td>Whatever fits on the card</td><td class="win">All your links in one tap</td></tr>
+        <tr><td>Get saved in contacts</td><td>They type it in, maybe</td><td class="win">One-tap Save contact</td></tr>
+        <tr><td>Accept payments</td><td>Not possible</td><td class="win">Payment QR on your page</td></tr>
+        <tr><td>Hear back from people</td><td>Only if they reach out</td><td class="win">Notes land in your inbox</td></tr>
+        <tr><td>Look</td><td>Same for everyone</td><td class="win">Your colors, photo and layout</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <section class="section" id="about">
   <div class="section-header">
-    <span class="section-tag">01 / Overview</span>
-    <h2 class="section-title">System Architecture</h2>
+    <span class="section-tag">06 / Under the hood</span>
+    <h2 class="section-title">How LYNQ works behind the scenes</h2>
   </div>
   <div class="grid">
     <div class="tech-card">
@@ -599,12 +848,33 @@ footer {
 
 <section class="section" id="setup">
   <div class="section-header">
-    <span class="section-tag">02 / Documentation</span>
-    <h2 class="section-title">Setup &amp; Troubleshooting Guide</h2>
+    <span class="section-tag">07 / Questions</span>
+    <h2 class="section-title">Questions, setup &amp; troubleshooting</h2>
   </div>
 
   <div class="accordion-group">
     <div class="accordion-item open">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">Do the people I meet need an app?</button>
+      <div class="accordion-content">
+        No. They tap their phone to your card and your page opens in their web browser. Nothing to download and no account to make.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">Can I change my info after I get the card?</button>
+      <div class="accordion-content">
+        Yes, anytime. Sign in, tap Edit Profile, change what you like and press Save &amp; Publish. Your card stays the same and shows the new version on the next tap.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">Who can edit my page?</button>
+      <div class="accordion-content">
+        Only the Google account that claimed the card. Everyone else who taps it sees your page and can save your contact or leave a note, but cannot change anything.
+      </div>
+    </div>
+
+    <div class="accordion-item">
       <button class="accordion-trigger" onclick="toggleAccordion(this)">How do I claim and set up my card?</button>
       <div class="accordion-content">
         Tap your physical LYNQ card against the back of an iPhone or Android phone. When the link loads, click the Sign In button at the bottom to connect your Google account and link the card to your profile permanently.
@@ -629,14 +899,16 @@ footer {
 
 <section class="section" id="local">
   <div class="section-header">
-    <span class="section-tag">03 / Specifications</span>
+    <span class="section-tag">08 / Pricing</span>
     <h2 class="section-title">Product Pricing</h2>
   </div>
 
   <div class="price-card">
     <span class="badge">PHYSICAL CARD UNIT</span>
     <div class="price">₱169 <span>/ one-time</span></div>
+    <p class="price-note">One card, one price. Your page stays online with no renewals.</p>
     <ul class="spec-list">
+      <li><span class="spec-label">Page edits</span> <span class="spec-val">Anytime</span></li>
       <li><span class="spec-label">Subscription Fee</span> <span class="spec-val">₱0 (Lifetime Hosting)</span></li>
       <li><span class="spec-label">Chip Standard</span> <span class="spec-val">ISO/IEC 14443 Universal</span></li>
       <li><span class="spec-label">Device Support</span> <span class="spec-val">iOS &amp; Android Universal</span></li>
