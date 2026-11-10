@@ -1,64 +1,3 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>LYNQ — Smart NFC Cards & Digital Portfolio</title> <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3
-
-pasted
-
-can you make this website darkmode at first and still there would be a Light mode toggle in the upper right corner of the screen, also in the card i want you to put this in the upper right corner of it like a Credit/debit card: also please make the boxes aesthetic not like a fully square like a 2000s UI.... please make it like a glassy iphone UI
-
-I’ve updated the page in index.html with all three changes.
-
-Dark mode by default: The page now opens dark, and the toggle sits in the top-right of the navbar. It reads “Light Mode” at first and switches to “Dark Mode” once you’re in light.
-Contactless symbol on the card: I added the four-arc symbol from your screenshot to the card’s top-right corner, like a real debit or credit card. It takes the card’s text color, so it stays visible when you change the card color with the swatches. I also gave the card a soft gloss across the top-left.
-Glassy iPhone look:
-The boxes now use frosted translucent glass with blur, thin light borders and a subtle top highlight.
-Corners are much rounder, and the navbar, footer, color swatches, buttons and badges are all pill-shaped.
-Faint blue, purple and teal glows sit behind the page so the glass has something to blur.
-The navbar floats at the top as a rounded glass bar and stays pinned while you scroll.
-I hid the “NFC ECOSYSTEM” badge on very small phone screens so the toggle has room.
-
-Index
-Code
-·HTML
-1794290840003_image.png
-loot at the wave thing its cut... please fixInstead of "Hardware & Cloud Platform" please put our Brand there big text of LYNQ also with the svg of what we used
-
-Ran a command, shared files
-Both changes are in the updated index.html.
-
-Cut-off waves: The icon’s drawing area was too narrow, so the outermost arc was being clipped. I widened it, and all four arcs now show fully.
-Brand in the hero: “Hardware & Cloud Platform” is replaced by a large lockup of the link icon next to “LYNQ”. It uses the same icon as the navbar and the card, in the accent blue with a soft glow behind it. It scales with screen size, so it stays big on desktop and fits on small phones.
-Index
-Code
-·HTML
-can you make the left side of the card a low opacity and fading white? only for those dark colors, for those color white and other light colors that can be fit with that design use low opacity fading black instead ( in the swatch) also make the svg of lynq colorful
-
-Ran a command, shared files
-The updated index.html has both changes.
-
-Fading left side of the card: The card now has a soft glow on its left edge that fades out toward the middle. It’s low-opacity white on the dark colors (Obsidian Black, Deep Navy, Royal Blue, Forest Green, Burgundy, Sunset Orange, Slate Purple) and low-opacity black on the lighter ones. It switches automatically when you click a swatch.
-Colorful LYNQ icon: The link icon in the hero now has a cyan → indigo → magenta → coral gradient with a soft purple glow behind it. I applied the same gradient to the small icon in the navbar so the two match. The icon on the card itself still follows the card’s text color.
-I counted Clean White, Sage Green, Soft Pink, Amber Gold and Cool Gray as light colors, so those get the black fade. I chose them because white fading over them would wash out the white text. If you’d rather any of them use the white fade, tell me which and I’ll move them.
-
-Index
-Code
-·HTML
-also in the card make the svg of lynq colorful
-
-Ran a command, shared files
-The link icon on the card now uses the same cyan → indigo → magenta → coral gradient as the hero and navbar icons, in the updated index.html. The “LYNQ” text next to it still follows the card’s text color.
-
-On Royal Blue or Deep Navy cards, the cyan and indigo part of the gradient may blend in a bit, though the magenta and coral end will still stand out. If it looks too muted on any color, I can adjust the gradient for those cards.
-
-Index
-Code
-·HTML
-
-
-
-
-Claude is AI and can make mistakes.
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +23,7 @@ Index · HTML
   --border: rgba(15, 23, 42, 0.10);
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
- 
+
 [data-theme="dark"] {
   --bg-solid: #070b16;
   --blob-1: rgba(59, 130, 246, 0.40);
@@ -101,7 +40,7 @@ Index · HTML
   --accent-light: rgba(96, 165, 250, 0.16);
   --border: rgba(255, 255, 255, 0.10);
 }
- 
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; min-height: 100%; }
 body {
@@ -113,7 +52,7 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
   transition: background-color 0.4s ease, color 0.3s ease;
 }
- 
+
 /* Ambient colour blobs so the glass has something to blur */
 body::before {
   content: "";
@@ -127,7 +66,7 @@ body::before {
   transition: opacity 0.4s ease;
   pointer-events: none;
 }
- 
+
 /* ---------- Navbar (floating glass pill) ---------- */
 .navbar {
   display: flex;
@@ -162,7 +101,7 @@ body::before {
   fill: none;
   stroke-width: 2.2;
 }
- 
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -196,7 +135,7 @@ body::before {
 }
 .theme-toggle-btn:hover { background: var(--accent-light); }
 .theme-toggle-btn:active { transform: scale(0.95); }
- 
+
 /* ---------- Hero ---------- */
 .hero {
   padding: 40px 6% 30px;
@@ -240,7 +179,7 @@ body::before {
   color: var(--sub);
   margin-bottom: 24px;
 }
- 
+
 .interactive-display-row {
   display: flex;
   align-items: center;
@@ -250,7 +189,7 @@ body::before {
   margin: 24px auto 16px;
   max-width: 850px;
 }
- 
+
 .card-preview-wrapper {
   perspective: 1000px;
   width: 100%;
@@ -280,7 +219,7 @@ body::before {
   background: linear-gradient(90deg, var(--sheen, rgba(255,255,255,0.22)) 0%, rgba(255,255,255,0) 65%);
   pointer-events: none;
 }
- 
+
 /* Contactless symbol, top-right like a credit/debit card */
 .nfc-symbol {
   position: absolute;
@@ -297,7 +236,7 @@ body::before {
   stroke-width: 1.7;
   stroke-linecap: round;
 }
- 
+
 .card-brand {
   position: absolute;
   inset: 0;
@@ -321,7 +260,7 @@ body::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: currentColor;
 }
- 
+
 .phone-prototype-frame {
   width: 260px;
   height: 520px;
@@ -362,7 +301,7 @@ body::before {
   top: 0;
   left: 0;
 }
- 
+
 .color-swatch-picker {
   display: flex;
   justify-content: center;
@@ -392,7 +331,7 @@ body::before {
   transform: scale(1.2);
   box-shadow: 0 0 0 2px var(--accent), 0 2px 6px rgba(0,0,0,0.25);
 }
- 
+
 /* ---------- Sections ---------- */
 .section {
   padding: 40px 6%;
@@ -415,7 +354,7 @@ body::before {
   letter-spacing: -0.01em;
   color: var(--text);
 }
- 
+
 /* Shared glass surface */
 .tech-card, .accordion-item, .price-card {
   background: var(--glass);
@@ -424,7 +363,7 @@ body::before {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
 }
- 
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -446,7 +385,7 @@ body::before {
   font-size: 13px;
   color: var(--sub);
 }
- 
+
 .accordion-group {
   display: flex;
   flex-direction: column;
@@ -492,7 +431,7 @@ body::before {
   max-height: 200px;
   padding: 0 20px 16px 20px;
 }
- 
+
 .price-card {
   border-radius: 30px;
   padding: 28px 24px;
@@ -531,7 +470,7 @@ body::before {
 }
 .spec-label { color: var(--text); font-weight: 500; }
 .spec-val { font-family: var(--mono); font-size: 11.5px; color: var(--accent); text-align: right; }
- 
+
 footer {
   text-align: center;
   padding: 16px 6%;
@@ -546,7 +485,14 @@ footer {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
- 
+
+/* Phones: show the colour swatches above the card */
+@media (max-width: 640px) {
+  .hero { display: flex; flex-direction: column; align-items: center; }
+  .swatch-section { order: 1; margin-bottom: 8px; }
+  .swatch-section .color-swatch-picker { margin-top: 10px; }
+  .interactive-display-row { order: 2; margin-top: 16px; }
+}
 @media (max-width: 480px) {
   .nav-actions .badge { display: none; }
 }
@@ -562,7 +508,7 @@ footer {
 </style>
 </head>
 <body data-theme="dark">
- 
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="lynqGrad" gradientUnits="userSpaceOnUse" x1="3" y1="21" x2="21" y2="3">
@@ -573,8 +519,8 @@ footer {
     </linearGradient>
   </defs>
 </svg>
- 
- 
+
+
 <nav class="navbar">
   <div class="logo">
     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
@@ -585,7 +531,7 @@ footer {
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">Light Mode</button>
   </div>
 </nav>
- 
+
 <section class="hero">
   <div class="hero-brand">
     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
@@ -593,7 +539,7 @@ footer {
   </div>
   <h1>Physical NFC Cards with Cloud Profile Hosting</h1>
   <p>Tap a physical card to load a customizable, dynamic digital portfolio instantly on any mobile browser.</p>
- 
+
   <div class="interactive-display-row">
     <div class="card-preview-wrapper">
       <div class="nfc-card-real" id="interactiveCard">
@@ -615,7 +561,7 @@ footer {
         </div>
       </div>
     </div>
- 
+
     <div class="phone-prototype-frame">
       <div class="phone-notch"></div>
       <div class="iframe-viewport-container">
@@ -623,11 +569,13 @@ footer {
       </div>
     </div>
   </div>
- 
-  <div style="font-family: var(--mono); font-size: 11px; color: var(--sub); margin-top: 12px;">Click a swatch to preview card color:</div>
-  <div class="color-swatch-picker" id="swatchPicker"></div>
+
+  <div class="swatch-section">
+    <div style="font-family: var(--mono); font-size: 11px; color: var(--sub); margin-top: 12px;">Click a swatch to preview card color:</div>
+    <div class="color-swatch-picker" id="swatchPicker"></div>
+  </div>
 </section>
- 
+
 <section class="section" id="about">
   <div class="section-header">
     <span class="section-tag">01 / Overview</span>
@@ -648,13 +596,13 @@ footer {
     </div>
   </div>
 </section>
- 
+
 <section class="section" id="setup">
   <div class="section-header">
     <span class="section-tag">02 / Documentation</span>
     <h2 class="section-title">Setup &amp; Troubleshooting Guide</h2>
   </div>
- 
+
   <div class="accordion-group">
     <div class="accordion-item open">
       <button class="accordion-trigger" onclick="toggleAccordion(this)">How do I claim and set up my card?</button>
@@ -662,14 +610,14 @@ footer {
         Tap your physical LYNQ card against the back of an iPhone or Android phone. When the link loads, click the Sign In button at the bottom to connect your Google account and link the card to your profile permanently.
       </div>
     </div>
- 
+
     <div class="accordion-item">
       <button class="accordion-trigger" onclick="toggleAccordion(this)">Why won't the Sign In button work sometimes?</button>
       <div class="accordion-content">
         Social media apps like Messenger or Facebook open links inside restrictive internal browser windows that block authentication popups. This can temporarily hide your editing privileges.
       </div>
     </div>
- 
+
     <div class="accordion-item">
       <button class="accordion-trigger" onclick="toggleAccordion(this)">How do I fix authentication or view issues?</button>
       <div class="accordion-content">
@@ -678,13 +626,13 @@ footer {
     </div>
   </div>
 </section>
- 
+
 <section class="section" id="local">
   <div class="section-header">
     <span class="section-tag">03 / Specifications</span>
     <h2 class="section-title">Product Pricing</h2>
   </div>
- 
+
   <div class="price-card">
     <span class="badge">PHYSICAL CARD UNIT</span>
     <div class="price">₱169 <span>/ one-time</span></div>
@@ -695,11 +643,11 @@ footer {
     </ul>
   </div>
 </section>
- 
+
 <footer>
   <p>&copy; 2026 LYNQ Systems — All rights reserved</p>
 </footer>
- 
+
 <script>
 const COLOR_OPTIONS = [
   { name: 'Obsidian Black', bg: '#111113', text: '#ffffff' },
@@ -715,10 +663,10 @@ const COLOR_OPTIONS = [
   { name: 'Slate Purple', bg: '#7b6c9e', text: '#ffffff' },
   { name: 'Cool Gray', bg: '#818a99', text: '#ffffff', light: true }
 ];
- 
+
 const card = document.getElementById('interactiveCard');
 const swatchPicker = document.getElementById('swatchPicker');
- 
+
 COLOR_OPTIONS.forEach((col, idx) => {
   const btn = document.createElement('button');
   btn.className = 'swatch-btn' + (idx === 0 ? ' active' : '');
@@ -733,7 +681,7 @@ COLOR_OPTIONS.forEach((col, idx) => {
   };
   swatchPicker.appendChild(btn);
 });
- 
+
 function toggleTheme() {
   const body = document.body;
   const btn = document.getElementById('themeToggleBtn');
@@ -745,14 +693,14 @@ function toggleTheme() {
     btn.textContent = 'Light Mode';
   }
 }
- 
+
 function toggleAccordion(btn) {
   const item = btn.parentElement;
   const isOpen = item.classList.contains('open');
   document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
- 
+
 const wrapper = card.parentElement;
 wrapper.addEventListener('mousemove', (e) => {
   const rect = wrapper.getBoundingClientRect();
@@ -766,10 +714,6 @@ wrapper.addEventListener('mouseleave', () => {
   card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
 });
 </script>
- 
+
 </body>
 </html>
- 
-
-
-Claude finished the response
