@@ -18,6 +18,7 @@
   --glass-hi: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
   --modal-bg: rgba(255, 255, 255, 0.92);
+  --ok: #16a34a; --no: #dc2626; --warn: #d97706;
   --text: #0f172a;
   --sub: #475569;
   --accent: #2563eb;
@@ -37,6 +38,7 @@
   --glass-hi: inset 0 1px 0 rgba(255, 255, 255, 0.16);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   --modal-bg: rgba(16, 22, 38, 0.92);
+  --ok: #4ade80; --no: #f87171; --warn: #fbbf24;
   --text: #f8fafc;
   --sub: #a3b1c6;
   --accent: #60a5fa;
@@ -598,6 +600,80 @@ body.terms-open { overflow: hidden; }
 .terms-foot small { display: block; text-align: center; margin-top: 8px; font-size: 11.5px; color: var(--sub); }
 footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
 
+/* ---------- Phone compatibility check ---------- */
+[hidden] { display: none !important; }
+.sheet-close {
+  position: absolute; top: 16px; right: 18px; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--glass-border); background: var(--glass-strong); color: var(--text);
+  font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.terms-head { position: relative; }
+.terms-head h2 { padding-right: 44px; }
+.chip-link { cursor: pointer; font-family: inherit; color: var(--accent); border-color: var(--accent); }
+.search-box {
+  display: flex; align-items: center; gap: 10px; padding: 0 14px;
+  background: var(--glass); border: 1px solid var(--border); border-radius: 16px; margin-top: 6px;
+  transition: border-color 0.2s;
+}
+.search-box:focus-within { border-color: var(--accent); }
+.search-box svg { width: 18px; height: 18px; flex: none; stroke: var(--sub); fill: none; stroke-width: 2; stroke-linecap: round; }
+.search-box input {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent; color: var(--text);
+  font-size: 16px; font-family: inherit; padding: 14px 0;
+}
+.search-box input::placeholder { color: var(--sub); opacity: 0.8; }
+.brand-chips { display: flex; gap: 6px; overflow-x: auto; padding: 10px 2px 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.brand-chips::-webkit-scrollbar { display: none; }
+.brand-chips button {
+  flex: none; font-size: 12px; font-weight: 600; font-family: inherit; color: var(--text);
+  background: var(--glass); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; cursor: pointer;
+}
+.brand-chips button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.phone-list {
+  margin-top: 8px; max-height: 250px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: var(--glass); border: 1px solid var(--border); border-radius: 16px;
+}
+.phone-opt {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 11px 14px;
+  background: none; border: none; border-bottom: 1px solid var(--border);
+  text-align: left; color: var(--text); font: inherit; font-size: 14px; cursor: pointer;
+}
+.phone-opt:last-child { border-bottom: none; }
+.phone-opt:hover, .phone-opt.active { background: var(--accent-light); }
+.phone-opt .nm { flex: 1; min-width: 0; }
+.phone-opt .nm small { display: block; font-size: 11px; font-weight: 500; color: var(--sub); margin-top: 1px; }
+.res-tag { font-size: 11.5px; font-weight: 600; color: var(--sub); margin-bottom: 4px; }
+.phone-opt .st { font-size: 12px; font-weight: 700; white-space: nowrap; }
+.phone-empty { padding: 14px; font-size: 13px; color: var(--sub); }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; display: inline-block; }
+.dot.y { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent), 0 0 10px var(--ok); }
+.dot.n { background: var(--no); box-shadow: 0 0 0 3px color-mix(in srgb, var(--no) 25%, transparent), 0 0 10px var(--no); }
+.dot.v { background: var(--warn); box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 25%, transparent), 0 0 10px var(--warn); }
+.st.y, .res-word.y { color: var(--ok); }
+.st.n, .res-word.n { color: var(--no); }
+.st.v, .res-word.v { color: var(--warn); }
+.check-result {
+  margin-top: 14px; padding: 16px 18px; border-radius: 20px;
+  background: var(--glass); border: 1px solid var(--border);
+}
+.check-result.y { border-color: var(--ok); }
+.check-result.n { border-color: var(--no); }
+.check-result.v { border-color: var(--warn); }
+.res-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.res-word { font-size: 17px; font-weight: 800; }
+.res-name { font-size: 13px; color: var(--text); font-weight: 600; margin-bottom: 6px; }
+.check-result p { font-size: 13.5px; margin: 0; }
+.check-result p + p { margin-top: 6px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 14px; font-size: 12.5px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; color: var(--text); }
+.fine { font-size: 12px; margin-top: 14px; }
+@media (max-width: 480px) {
+  .navbar { padding: 10px 12px; }
+  .logo { font-size: 16px; }
+  .nav-actions { gap: 6px; }
+  .theme-toggle-btn { padding: 6px 11px; font-size: 11px; }
+}
+
 .price-note { font-size: 13px; color: var(--sub); margin: 0 auto 14px; max-width: 320px; }
 
 /* Phones: show the colour swatches above the card */
@@ -642,6 +718,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
   </div>
   <div class="nav-actions">
     <span class="badge">NFC ECOSYSTEM</span>
+    <button class="theme-toggle-btn" type="button" onclick="openCheck()">Phone check</button>
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">Light Mode</button>
   </div>
 </nav>
@@ -658,6 +735,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     <span class="chip">No subscription</span>
     <span class="chip">iPhone &amp; Android</span>
     <span class="chip">Edit anytime</span>
+    <button type="button" class="chip chip-link" onclick="openCheck()">Is my phone compatible?</button>
   </div>
 
   <div class="interactive-display-row">
@@ -949,6 +1027,13 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     </div>
 
     <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">Will my phone work with LYNQ?</button>
+      <div class="accordion-content">
+        Almost every iPhone from the XS onward and most Android phones with NFC work. Not sure about yours? <a onclick="openCheck()" style="color:var(--accent); text-decoration:underline; cursor:pointer;">Use the phone check</a> to find out.
+      </div>
+    </div>
+
+    <div class="accordion-item">
       <button class="accordion-trigger" onclick="toggleAccordion(this)">Can I change my info after I get the card?</button>
       <div class="accordion-content">
         Yes, anytime. Sign in, tap Edit Profile, change what you like and press Save &amp; Publish. Your card stays the same and shows the new version on the next tap.
@@ -1010,6 +1095,45 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     </ul>
   </div>
 </section>
+
+<div class="terms-overlay" id="checkOverlay" role="dialog" aria-modal="true" aria-labelledby="checkTitle">
+  <div class="terms-modal">
+    <div class="terms-head">
+      <button type="button" class="sheet-close" id="checkCloseBtn" aria-label="Close">&times;</button>
+      <h2 id="checkTitle">Phone compatibility check</h2>
+      <p>Search your phone to see if it can tap a LYNQ card.</p>
+    </div>
+    <div class="terms-body">
+      <div id="checkSearchWrap">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="phoneSearch" type="text" placeholder="Type your phone, e.g. Galaxy S24" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="phoneList" aria-label="Search your phone model">
+        </div>
+        <div class="brand-chips" id="brandChips" role="group" aria-label="Filter by brand"></div>
+        <div class="phone-list" id="phoneList" role="listbox" hidden></div>
+      </div>
+
+      <div class="check-result" id="checkResult" aria-live="polite">
+        <p>Pick your phone from the suggestions to see if it works.</p>
+      </div>
+
+      <div class="legend">
+        <span><i class="dot y"></i> Compatible</span>
+        <span><i class="dot n"></i> Not compatible</span>
+        <span><i class="dot v"></i> Depends on version</span>
+      </div>
+
+      <h4>Not sure? Check it on your phone</h4>
+      <p><b>Android:</b> open Settings and search for “NFC”. If you see it, your phone has NFC. Turn it on before tapping.</p>
+      <p><b>iPhone:</b> iPhone XS and newer open LYNQ cards automatically. iPhone 7, 8 and X need a manual toggle in Control Center first.</p>
+
+      <p class="fine">This list is a guide based on the manufacturers’ specs. Some regional versions of the same phone differ, so when you see “Depends on version”, check your phone’s settings or box. Don’t see your phone? Contact us at <span class="js-contact">[YOUR CONTACT HERE]</span> and we will check for you.</p>
+    </div>
+    <div class="terms-foot">
+      <button type="button" id="checkDoneBtn">Done</button>
+    </div>
+  </div>
+</div>
 
 <div class="terms-overlay" id="termsOverlay" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
   <div class="terms-modal">
@@ -1142,6 +1266,222 @@ document.getElementById('termsAcceptBtn').addEventListener('click', () => {
   closeTerms();
 });
 if (!termsAccepted()) openTerms();
+
+/* ---------- Phone compatibility check ---------- */
+const NOTE_TAG = 'This model needs a manual step: add \u201cNFC Tag Reader\u201d to Control Center (Settings > Control Center, iOS 14 or later), then open Control Center and tap that button each time before you tap the card.';
+const SHORT_TAG = 'Manual toggle in Settings needed';
+const PHONE_DATA = [
+  { brand: 'Apple',
+    y: ['iPhone 17 Pro Max','iPhone 17 Pro','iPhone Air','iPhone 17','iPhone 16e','iPhone 16 Pro Max','iPhone 16 Pro','iPhone 16 Plus','iPhone 16','iPhone 15 Pro Max','iPhone 15 Pro','iPhone 15 Plus','iPhone 15','iPhone 14 Pro Max','iPhone 14 Pro','iPhone 14 Plus','iPhone 14','iPhone 13 Pro Max','iPhone 13 Pro','iPhone 13','iPhone 13 mini','iPhone 12 Pro Max','iPhone 12 Pro','iPhone 12','iPhone 12 mini','iPhone 11 Pro Max','iPhone 11 Pro','iPhone 11','iPhone XS Max','iPhone XS','iPhone XR','iPhone SE (3rd generation)','iPhone SE (2nd generation)','iPhone X','iPhone 8 Plus','iPhone 8','iPhone 7 Plus','iPhone 7'],
+    n: ['iPhone SE (1st generation)','iPhone 6s Plus','iPhone 6s','iPhone 6 Plus','iPhone 6','iPhone 5s'],
+    notes: { 'iPhone X': NOTE_TAG, 'iPhone 8 Plus': NOTE_TAG, 'iPhone 8': NOTE_TAG, 'iPhone 7 Plus': NOTE_TAG, 'iPhone 7': NOTE_TAG },
+    tags: { 'iPhone X': SHORT_TAG, 'iPhone 8 Plus': SHORT_TAG, 'iPhone 8': SHORT_TAG, 'iPhone 7 Plus': SHORT_TAG, 'iPhone 7': SHORT_TAG } },
+  { brand: 'Samsung',
+    y: ['Galaxy S25 Ultra','Galaxy S25+','Galaxy S25','Galaxy S25 Edge','Galaxy S25 FE','Galaxy S24 Ultra','Galaxy S24+','Galaxy S24','Galaxy S24 FE','Galaxy S23 Ultra','Galaxy S23+','Galaxy S23','Galaxy S23 FE','Galaxy S22 Ultra','Galaxy S22+','Galaxy S22','Galaxy S21 Ultra','Galaxy S21+','Galaxy S21','Galaxy S21 FE','Galaxy S20 Ultra','Galaxy S20+','Galaxy S20','Galaxy S20 FE','Galaxy S10+','Galaxy S10','Galaxy S10e','Galaxy Note 20 Ultra','Galaxy Note 20','Galaxy Note 10+','Galaxy Note 10','Galaxy Z Fold7','Galaxy Z Fold6','Galaxy Z Fold5','Galaxy Z Fold4','Galaxy Z Fold3','Galaxy Z Flip7','Galaxy Z Flip7 FE','Galaxy Z Flip6','Galaxy Z Flip5','Galaxy Z Flip4','Galaxy Z Flip3','Galaxy A56 5G','Galaxy A55 5G','Galaxy A54 5G','Galaxy A53 5G','Galaxy A52s 5G','Galaxy A52','Galaxy A36 5G','Galaxy A35 5G','Galaxy A34 5G','Galaxy A33 5G','Galaxy A73 5G','Galaxy A72','Galaxy A71'],
+    v: ['Galaxy A26 5G','Galaxy A25 5G','Galaxy A24','Galaxy A16 5G','Galaxy A16','Galaxy A15 5G','Galaxy A15','Galaxy A14 5G','Galaxy A14','Galaxy A13','Galaxy A23','Galaxy A22','Galaxy A32','Galaxy A51','Galaxy A12'],
+    n: ['Galaxy A06','Galaxy A05s','Galaxy A05','Galaxy A04s','Galaxy A04','Galaxy A03s','Galaxy A03'] },
+  { brand: 'Xiaomi',
+    y: ['15 Ultra','15','15T Pro','15T','14T Pro','14T','14 Ultra','14','13T Pro','13T','13 Ultra','13 Pro','13','12T Pro','12T','12 Pro','12','11T Pro','11T','Mi 11 Ultra','Mi 11'] },
+  { brand: 'Redmi',
+    y: ['Note 14 Pro+ 5G','Note 13 Pro+ 5G','Note 12 Pro+ 5G'],
+    v: ['Note 14 Pro 5G','Note 14 Pro','Note 14 5G','Note 14','Note 13 Pro 5G','Note 13 Pro','Note 13 5G','Note 13','Note 12 Pro 5G','Note 12 Pro','Note 12 5G','Note 12','Note 11 Pro','Note 11','Note 10 Pro','14C','13C','13','12C','12'],
+    n: ['A5','A3','A2','A1','10A','9A'] },
+  { brand: 'POCO',
+    y: ['F7 Ultra','F7 Pro','F7','F6 Pro','F6','F5 Pro','F5','F4 GT','F4','X7 Pro','X7','X6 Pro','X6'],
+    v: ['X5 Pro','X5','M7 Pro','M7','M6 Pro','M6'],
+    n: ['C75','C65'] },
+  { brand: 'Oppo',
+    y: ['Find X8 Pro','Find X8','Find X7 Ultra','Find X7','Find X6 Pro','Find X5 Pro','Find X5','Find X3 Pro','Find N5','Find N3 Flip','Find N3'],
+    v: ['Reno 14 Pro','Reno 14','Reno 13 Pro','Reno 13','Reno 13F','Reno 12 Pro','Reno 12','Reno 12F','Reno 11 Pro','Reno 11','Reno 11F','Reno 10 Pro+','Reno 10 Pro','Reno 10','Reno 8 Pro','Reno 8','Reno 8T','A5 Pro','A60','A79','A78','A58','A98','A38'],
+    n: ['A18','A17','A16','A15'] },
+  { brand: 'Vivo',
+    y: ['X200 Pro','X200','X200 FE','X100 Pro','X100','X90 Pro','X90','X80 Pro','X80'],
+    v: ['V50','V50 Lite','V40 Pro','V40','V40e','V30 Pro','V30','V30e','V29','V27','V25','V23','Y100','Y200','Y28 5G','Y36','Y27'],
+    n: ['Y03','Y02','Y18','Y17s','Y16','Y15s','Y22','Y21','Y20'] },
+  { brand: 'Realme',
+    y: ['GT 7 Pro','GT 7','GT 6','GT 5 Pro','GT 3','14 Pro+','13 Pro+','12 Pro+','11 Pro+','C55'],
+    v: ['14 Pro','13 Pro','12 Pro','11 Pro','13+','12+','Narzo 70 Pro','Narzo 60 Pro','C75','C71','C67','C65','C63','C61','C53','C51'] },
+  { brand: 'Infinix',
+    v: ['Zero 40 5G','Zero 30 5G','Zero Ultra','GT 20 Pro','Note 40 Pro+ 5G','Note 40 Pro 5G','Note 40 Pro','Note 40','Note 30 Pro','Note 30','Hot 50 Pro','Hot 50','Hot 40 Pro','Hot 40','Hot 30','Hot 20'],
+    n: ['Smart 10','Smart 9','Smart 8','Smart 7','Smart 6'] },
+  { brand: 'Tecno',
+    y: ['Phantom V Flip','Phantom V Fold','Phantom X2 Pro','Phantom X2'],
+    v: ['Camon 40 Pro 5G','Camon 30 Premier 5G','Camon 30 Pro 5G','Camon 30','Camon 20 Pro','Camon 20','Pova 6 Pro','Pova 5 Pro','Spark 30 Pro','Spark 20 Pro+','Spark 20 Pro','Spark 20','Spark 10 Pro','Spark 10'],
+    n: ['Spark Go 2024','Spark Go 2023','Pop 8','Pop 7'] },
+  { brand: 'Huawei',
+    y: ['Pura 80 Pro','Pura 80','Pura 70 Ultra','Pura 70 Pro','Pura 70','Mate 70 Pro','Mate 60 Pro','Mate 50 Pro','Mate 40 Pro','Mate X5','Mate X3','P60 Pro','P60','P50 Pro','P40 Pro','P40'],
+    v: ['Nova 13 Pro','Nova 12','Nova 11','Nova 10','Nova 9'] },
+  { brand: 'Honor',
+    y: ['Magic7 Pro','Magic6 Pro','Magic5 Pro','Magic V3','Magic V2'],
+    v: ['400 Pro','200 Pro','200','90','70','50','X9b','X8b','X9a'],
+    n: ['X5','X6','X6a'] },
+  { brand: 'Google',
+    y: ['Pixel 10 Pro Fold','Pixel 10 Pro XL','Pixel 10 Pro','Pixel 10','Pixel 9a','Pixel 9 Pro Fold','Pixel 9 Pro XL','Pixel 9 Pro','Pixel 9','Pixel 8a','Pixel 8 Pro','Pixel 8','Pixel 7a','Pixel 7 Pro','Pixel 7','Pixel 6a','Pixel 6 Pro','Pixel 6','Pixel 5a','Pixel 5','Pixel 4a','Pixel 4 XL','Pixel 4','Pixel 3a XL','Pixel 3a','Pixel Fold'] },
+  { brand: 'OnePlus',
+    y: ['13','13R','12','12R','11','10 Pro','10T','9 Pro','9','8T','8 Pro','8','Nord 4','Nord 3','Nord CE 4','Nord CE 3','Nord 2T'] },
+  { brand: 'Motorola',
+    y: ['Razr 60 Ultra','Razr 60','Razr 50 Ultra','Razr 50','Razr 40 Ultra','Razr+ 2024','Edge 60 Pro','Edge 60 Fusion','Edge 50 Ultra','Edge 50 Pro','Edge 50 Fusion','Edge 40 Neo','Edge 40','Edge 30 Ultra'],
+    v: ['Moto G85 5G','Moto G84 5G','Moto G75 5G','Moto G73 5G','Moto G64 5G','Moto G55 5G','Moto G54 5G','Moto G34 5G'],
+    n: ['Moto E15','Moto E14','Moto E13','Moto E22','Moto G14','Moto G04'] },
+  { brand: 'Sony',
+    y: ['Xperia 1 VII','Xperia 1 VI','Xperia 1 V','Xperia 1 IV','Xperia 5 V','Xperia 5 IV','Xperia 10 VII','Xperia 10 VI','Xperia 10 V','Xperia 10 IV'] },
+  { brand: 'Asus',
+    y: ['ROG Phone 9 Pro','ROG Phone 9','ROG Phone 8 Pro','ROG Phone 8','ROG Phone 7','ROG Phone 6','Zenfone 12 Ultra','Zenfone 11 Ultra','Zenfone 10','Zenfone 9'] },
+  { brand: 'Nothing',
+    y: ['Phone (3)','Phone (3a) Pro','Phone (3a)','Phone (2a) Plus','Phone (2a)','Phone (2)','Phone (1)','CMF Phone 2 Pro','CMF Phone 1'] },
+  { brand: 'itel',
+    v: ['P55 5G','P55'],
+    n: ['A70','A60s','A60','A50','A05s','P40'] }
+];
+
+const NFC_WORD = { y: 'Compatible', n: 'Not compatible', v: 'Depends on version' };
+const norm = t => t.toLowerCase().replace(/\+/g, 'plus').replace(/[^a-z0-9]/g, '');
+
+const PHONES = [];
+PHONE_DATA.forEach(b => {
+  ['y', 'v', 'n'].forEach(st => (b[st] || []).forEach(name => {
+    const display = b.brand === 'Apple' ? name : b.brand + ' ' + name;
+    PHONES.push({
+      brand: b.brand, name, display, status: st,
+      note: (b.notes || {})[name] || '',
+      tag: (b.tags || {})[name] || '',
+      key: norm(b.brand === 'Apple' ? 'Apple ' + name : display)
+    });
+  }));
+});
+
+const POPULAR = ['iPhone 16','Samsung Galaxy S25 Ultra','Samsung Galaxy A56 5G','Redmi Note 14 Pro+ 5G','Oppo Reno 13 Pro','Vivo Y18','Realme C55','Infinix Smart 8','Tecno Spark Go 2024','Samsung Galaxy A06']
+  .map(n => PHONES.find(p => p.display.toLowerCase() === n.toLowerCase())).filter(Boolean);
+
+const checkOverlay = document.getElementById('checkOverlay');
+const phoneSearch = document.getElementById('phoneSearch');
+const phoneList = document.getElementById('phoneList');
+const brandChips = document.getElementById('brandChips');
+let activeBrand = '';
+let listItems = [];
+let activeIdx = -1;
+
+function searchPhones(q) {
+  const tokens = q.toLowerCase().split(/\s+/).map(norm).filter(Boolean);
+  const pool = PHONES.filter(p => !activeBrand || p.brand === activeBrand);
+  if (!tokens.length) return activeBrand ? pool : POPULAR;
+  const joined = tokens.join('');
+  return pool
+    .filter(p => tokens.every(t => p.key.includes(t)))
+    .map(p => ({ p, score: p.key === joined ? 0 : p.key.startsWith(joined) ? 1 : p.key.includes(joined) ? 2 : 3 }))
+    .sort((a, b) => a.score - b.score || a.p.key.length - b.p.key.length)
+    .map(x => x.p);
+}
+
+function renderList() {
+  listItems = searchPhones(phoneSearch.value).slice(0, 60);
+  activeIdx = -1;
+  phoneList.innerHTML = '';
+  if (!listItems.length) {
+    const d = document.createElement('div');
+    d.className = 'phone-empty';
+    d.textContent = 'No match yet. Try fewer words, like the model name only, or check your phone\u2019s Settings for \u201cNFC\u201d.';
+    phoneList.appendChild(d);
+  } else {
+    listItems.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'phone-opt';
+      b.setAttribute('role', 'option');
+      b.dataset.i = i;
+      b.innerHTML = '<i class="dot ' + p.status + '"></i><span class="nm"></span><span class="st ' + p.status + '"></span>';
+      b.querySelector('.nm').textContent = p.display;
+      if (p.tag) {
+        const sm = document.createElement('small');
+        sm.textContent = p.tag;
+        b.querySelector('.nm').appendChild(sm);
+      }
+      b.querySelector('.st').textContent = NFC_WORD[p.status];
+      b.addEventListener('click', () => choosePhone(p));
+      phoneList.appendChild(b);
+    });
+  }
+  phoneList.hidden = false;
+  phoneSearch.setAttribute('aria-expanded', 'true');
+}
+function hideList() {
+  phoneList.hidden = true;
+  phoneSearch.setAttribute('aria-expanded', 'false');
+}
+function setActive(i) {
+  const opts = phoneList.querySelectorAll('.phone-opt');
+  if (!opts.length) return;
+  activeIdx = (i + opts.length) % opts.length;
+  opts.forEach((o, n) => o.classList.toggle('active', n === activeIdx));
+  opts[activeIdx].scrollIntoView({ block: 'nearest' });
+}
+
+function choosePhone(p) {
+  phoneSearch.value = p.display;
+  hideList();
+  const el = document.getElementById('checkResult');
+  let msg;
+  if (p.status === 'y') {
+    msg = '<p>' + p.display + ' can open LYNQ cards. ' +
+      (p.brand === 'Apple' && !p.note ? 'Hold the card against the top back of your iPhone and your page opens.' : p.brand === 'Apple' ? 'Hold the card against the top back of your iPhone.' : 'Make sure NFC is turned on in Settings, then hold the card against the back of your phone.') + '</p>' +
+      (p.note ? '<p>' + p.note + '</p>' : '');
+  } else if (p.status === 'v') {
+    msg = '<p>Some versions of the ' + p.display + ' have NFC and others do not, depending on the region or model number.</p>' +
+      '<p>To be sure, open Settings and search for \u201cNFC\u201d, or check the spec sheet on the box. Questions? Contact us at ' + CONTACT_TEXT + '.</p>';
+  } else {
+    msg = '<p>' + p.display + ' does not have NFC, so it cannot open a LYNQ card by tapping.</p>' +
+      '<p>People with compatible phones can still tap your card, and you can share your page link with anyone. For your own setup, a friend\u2019s compatible phone works too, or contact us at ' + CONTACT_TEXT + ' and we will help.</p>';
+  }
+  el.className = 'check-result ' + p.status;
+  el.innerHTML = (p.tag ? '<div class="res-tag">' + p.tag + '</div>' : '') + '<div class="res-head"><i class="dot ' + p.status + '"></i><span class="res-word ' + p.status + '">' + NFC_WORD[p.status] + '</span></div>' +
+    '<div class="res-name">' + p.display + '</div>' + msg;
+}
+
+function buildBrandChips() {
+  const make = (label, value) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = label;
+    b.setAttribute('aria-pressed', value === activeBrand ? 'true' : 'false');
+    b.addEventListener('click', () => {
+      activeBrand = value === activeBrand ? '' : value;
+      brandChips.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.v === activeBrand ? 'true' : 'false'));
+      renderList();
+    });
+    b.dataset.v = value;
+    brandChips.appendChild(b);
+  };
+  PHONE_DATA.forEach(b => make(b.brand, b.brand));
+}
+buildBrandChips();
+
+phoneSearch.addEventListener('focus', renderList);
+phoneSearch.addEventListener('input', renderList);
+phoneSearch.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); if (phoneList.hidden) renderList(); setActive(activeIdx + 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIdx - 1); }
+  else if (e.key === 'Enter') { e.preventDefault(); const p = listItems[activeIdx >= 0 ? activeIdx : 0]; if (p && !phoneList.hidden) choosePhone(p); }
+  else if (e.key === 'Escape' && !phoneList.hidden) { e.stopPropagation(); hideList(); }
+});
+document.addEventListener('pointerdown', e => {
+  if (!document.getElementById('checkSearchWrap').contains(e.target)) hideList();
+});
+
+function openCheck() {
+  checkOverlay.classList.add('open');
+  document.body.classList.add('terms-open');
+  checkOverlay.querySelector('.terms-body').scrollTop = 0;
+  if (!window.matchMedia('(pointer: coarse)').matches) phoneSearch.focus();
+}
+function closeCheck() {
+  checkOverlay.classList.remove('open');
+  document.body.classList.remove('terms-open');
+  hideList();
+}
+document.getElementById('checkCloseBtn').addEventListener('click', closeCheck);
+document.getElementById('checkDoneBtn').addEventListener('click', closeCheck);
+checkOverlay.addEventListener('click', e => { if (e.target === checkOverlay) closeCheck(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && checkOverlay.classList.contains('open')) closeCheck(); });
 </script>
 
 </body>
