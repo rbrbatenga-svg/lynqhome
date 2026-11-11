@@ -775,6 +775,34 @@ html { scroll-padding-top: 84px; }
   .price-card { padding: 20px 18px; border-radius: 26px; }
   footer { margin-top: 8px; }
 }
+
+/* ---------- Expandable info box ---------- */
+.more-info {
+  margin-top: 16px; background: var(--glass); border: 1px solid var(--glass-border); border-left: 4px solid var(--accent);
+  border-radius: 22px; box-shadow: var(--glass-shadow), var(--glass-hi);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+.more-info summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 20px;
+}
+.more-info summary::-webkit-details-marker { display: none; }
+.more-info summary::after {
+  content: "+"; flex: none; font-family: var(--mono); font-size: 20px; color: var(--accent); transition: transform 0.25s ease;
+}
+.more-info[open] summary::after { transform: rotate(45deg); }
+.mi-text strong { display: block; font-size: 15.5px; color: var(--text); }
+.mi-text small { display: block; font-size: 13px; color: var(--sub); margin-top: 2px; line-height: 1.45; }
+.mi-body { padding: 0 20px 18px; }
+.mi-body p { font-size: 13.5px; color: var(--sub); line-height: 1.6; }
+.mi-body p + p { margin-top: 8px; }
+.mi-body b { color: var(--text); }
+.mi-body a { color: var(--accent); font-weight: 600; }
+@media (max-width: 640px) {
+  .more-info { margin-top: 4px; border-radius: 22px; }
+  .more-info summary { padding: 14px 16px; }
+  .mi-body { padding: 0 16px 16px; }
+}
 </style>
 </head>
 <body data-theme="dark">
@@ -1237,10 +1265,20 @@ html { scroll-padding-top: 84px; }
       <h3>You choose what is shown</h3>
       <p>Every field is optional. Share only what you are comfortable with, and remove anything from your page at any time.</p>
     </div>
-  <div class="callout" style="margin-top:16px; margin-bottom:0;">
-    <h3>Your data and privacy</h3>
-    <p>Your profile is stored in our cloud database and shown to anyone who taps your card. The chip only holds a link with your card ID, and we never see your Google password. Our developers do not routinely look at your profile or inbox notes. Because we run the database, we may be able to access stored data, and we only do so to support you, keep the service secure or comply with the law. We aim to follow the Philippine Data Privacy Act of 2012 and other privacy laws that apply, and you can ask us to access, correct or delete your data at any time. <a href="#" onclick="openTerms(); return false;" style="color:var(--accent); font-weight:600;">Read the full Terms &amp; Conditions</a></p>
   </div>
+  <details class="more-info">
+    <summary>
+      <span class="mi-text">
+        <strong>Your data and privacy</strong>
+        <small>Your profile is stored online and shown to anyone who taps your card. Tap for details.</small>
+      </span>
+    </summary>
+    <div class="mi-body">
+      <p><b>What is stored:</b> Your profile is stored in our cloud database. The chip on your card only holds a link with your card ID, and we never see your Google password.</p>
+      <p><b>Who can see it:</b> Our developers do not routinely look at your profile or inbox notes. Because we run the database, we may be able to access stored data, and we only do so to support you, keep the service secure or comply with the law.</p>
+      <p><b>Your rights:</b> We aim to follow the Philippine Data Privacy Act of 2012 and other privacy laws that apply. You can ask us to access, correct or delete your data at any time. <a href="#" onclick="openTerms(); return false;">Read the full Terms &amp; Conditions</a></p>
+    </div>
+  </details>
 </section>
 
 <section class="section" id="about">
