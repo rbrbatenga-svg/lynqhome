@@ -674,6 +674,31 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
   .theme-toggle-btn { padding: 6px 11px; font-size: 11px; }
 }
 
+/* ---------- Theme gallery ---------- */
+.theme-grid-lp { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+.theme-tile {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 12px 14px;
+  background: var(--glass); border: 1px solid var(--glass-border); border-radius: 26px;
+  box-shadow: var(--glass-shadow), var(--glass-hi);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+  transition: transform 0.25s ease, background 0.3s ease;
+}
+.theme-tile:hover { transform: translateY(-3px); background: var(--glass-strong); }
+.theme-name { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 10px; }
+.theme-mode { font-family: var(--mono); font-size: 11px; color: var(--sub); }
+.tp { width: 100%; background: var(--p-bg); border-radius: 18px; overflow: hidden; padding-bottom: 12px; border: 1px solid var(--border); }
+.tp-cover { height: 40px; background: var(--p-cover); }
+.tp-card {
+  position: relative; display: flex; flex-direction: column; gap: 6px;
+  margin: -14px 10px 0; padding: 8px 10px 10px;
+  background: var(--p-card); border: 1px solid rgba(127,127,127,0.25); border-radius: 12px;
+}
+.tp-avatar { width: 26px; height: 26px; border-radius: 50%; margin-top: -22px; background: var(--p-acc); border: 2px solid rgba(255,255,255,0.9); }
+.tp-line { display: block; height: 6px; width: 58%; border-radius: 3px; background: var(--p-text); }
+.tp-line.sub { height: 4px; width: 82%; background: var(--p-sub); opacity: 0.8; }
+.tp-pill { display: block; height: 14px; border-radius: 8px; border: 1px solid rgba(127,127,127,0.35); position: relative; }
+.tp-pill::before { content: ""; position: absolute; left: 4px; top: 3px; width: 6px; height: 6px; border-radius: 50%; background: var(--p-acc); }
+
 .price-note { font-size: 13px; color: var(--sub); margin: 0 auto 14px; max-width: 320px; }
 
 /* Phones: show the colour swatches above the card */
@@ -694,6 +719,61 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- Phone-first layout: less scrolling ---------- */
+html { scroll-padding-top: 84px; }
+.jump-nav, .swipe-hint { display: none; }
+@media (max-width: 640px) {
+  .jump-nav {
+    display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    margin: 12px 0 0; padding: 4px 4% 6px;
+  }
+  .jump-nav::-webkit-scrollbar { display: none; }
+  .jump-nav a {
+    flex: none; font-size: 12.5px; font-weight: 600; color: var(--text); text-decoration: none; white-space: nowrap;
+    background: var(--glass); border: 1px solid var(--glass-border); border-radius: 999px; padding: 7px 14px;
+    box-shadow: var(--glass-hi); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+
+  .hero { padding: 14px 5% 6px; }
+  .hero-brand { margin-bottom: 10px; }
+  .hero h1 { margin-bottom: 8px; }
+  .hero p { margin-bottom: 14px; font-size: 14px; }
+  .interactive-display-row { gap: 16px; margin: 10px auto 8px; }
+  .phone-prototype-frame { height: 440px; }
+
+  .section { padding: 22px 5vw; }
+  .section-header { margin-bottom: 12px; }
+  .section-title { font-size: 21px; }
+  .section-lead { font-size: 13px; margin-top: 4px; }
+  .swipe-hint { display: block; font-family: var(--mono); font-size: 11px; color: var(--sub); margin: -2px 0 8px; }
+
+  /* card rows become swipeable carousels */
+  .grid, .steps, .theme-grid-lp {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    margin: 0 -5vw; padding: 2px 5vw 14px; scroll-padding: 0 5vw;
+  }
+  .grid::-webkit-scrollbar, .steps::-webkit-scrollbar, .theme-grid-lp::-webkit-scrollbar { display: none; }
+  .grid > *, .steps > * { flex: 0 0 76%; scroll-snap-align: start; }
+  .theme-grid-lp > * { flex: 0 0 150px; scroll-snap-align: start; }
+
+  .tech-card, .step { padding: 18px; border-radius: 22px; }
+  .tech-card h3, .step h3 { font-size: 14.5px; }
+  .tech-card p, .step p { font-size: 13px; }
+  .icon-tile { width: 34px; height: 34px; margin-bottom: 8px; border-radius: 12px; }
+  .icon-tile svg { width: 17px; height: 17px; }
+  .step-num { width: 30px; height: 30px; margin-bottom: 8px; }
+
+  .callout { padding: 16px 18px; border-radius: 22px; margin-bottom: 12px; }
+  .feature-panel { padding: 18px 16px; border-radius: 24px; }
+  .feature-group + .feature-group { margin-top: 14px; padding-top: 14px; }
+  .chip { font-size: 12px; padding: 6px 11px; }
+  .compare-card table { min-width: 0; font-size: 12.5px; }
+  .compare-card th, .compare-card td { padding: 10px 12px; }
+  .price-card { padding: 20px 18px; border-radius: 26px; }
+  footer { margin-top: 8px; }
 }
 </style>
 </head>
@@ -721,6 +801,15 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     <button class="theme-toggle-btn" type="button" onclick="openCheck()">Phone check</button>
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">Light Mode</button>
   </div>
+</nav>
+
+<nav class="jump-nav" aria-label="Jump to a section">
+  <a href="#why">Why LYNQ</a>
+  <a href="#uses">Use cases</a>
+  <a href="#themes">Themes</a>
+  <a href="#security">Security</a>
+  <a href="#setup">FAQ</a>
+  <a href="#local">Pricing</a>
 </nav>
 
 <section class="hero">
@@ -780,6 +869,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     <h2 class="section-title">Why people get a LYNQ card</h2>
     <p class="section-lead">A paper card gets lost in a drawer. A LYNQ card puts everything you want people to know about you on their phone in one tap.</p>
   </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
   <div class="grid">
     <div class="tech-card">
       <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
@@ -820,6 +910,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     <h2 class="section-title">Made for how you meet people</h2>
     <p class="section-lead">Work meetings, school events or a night out. If you share your details more than once, LYNQ saves you the effort.</p>
   </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
   <div class="grid">
     <div class="tech-card">
       <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
@@ -909,12 +1000,141 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
   </div>
 </section>
 
+<section class="section" id="themes">
+  <div class="section-header">
+    <span class="section-tag">04 / Themes</span>
+    <h2 class="section-title">Pick your look</h2>
+    <p class="section-lead">Choose from 8 color themes in your page editor, and switch any time you feel like a change.</p>
+  </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
+  <div class="theme-grid-lp">
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#f4f5f7; --p-card:rgba(255,255,255,0.78); --p-text:#1a1a1a; --p-sub:#555555; --p-acc:#4472C4; --p-cover:linear-gradient(135deg,#4472C4,#2E5395);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">Clean Light</span>
+      <span class="theme-mode">Light</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#121212; --p-card:rgba(30,30,30,0.8); --p-text:#f1f1f1; --p-sub:#a0a0a0; --p-acc:#888888; --p-cover:linear-gradient(135deg,#242424,#0d0d0d);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">Black &amp; Gray</span>
+      <span class="theme-mode">Dark</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#fff0f5; --p-card:rgba(255,255,255,0.8); --p-text:#2d132c; --p-sub:#6b4c68; --p-acc:#d81b60; --p-cover:linear-gradient(135deg,#ff80bf,#ffb3d9);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">White &amp; Pink</span>
+      <span class="theme-mode">Light</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#f8fafc; --p-card:rgba(255,255,255,0.85); --p-text:#0f172a; --p-sub:#475569; --p-acc:#0f172a; --p-cover:linear-gradient(135deg,#334155,#0f172a);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">White &amp; Black</span>
+      <span class="theme-mode">Light</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#1a1025; --p-card:rgba(38,24,54,0.85); --p-text:#ffffff; --p-sub:#d8b4fe; --p-acc:#ec4899; --p-cover:linear-gradient(90deg,#ef4444,#f97316,#eab308,#22c55e,#3b82f6,#a855f7);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">LGBT Pride</span>
+      <span class="theme-mode">Dark</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#090d16; --p-card:rgba(17,24,39,0.85); --p-text:#f3f4f6; --p-sub:#9ca3af; --p-acc:#3b82f6; --p-cover:linear-gradient(135deg,#1e40af,#1e1b4b);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">Midnight Blue</span>
+      <span class="theme-mode">Dark</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#061a14; --p-card:rgba(15,41,34,0.85); --p-text:#ecfdf5; --p-sub:#6ee7b7; --p-acc:#10b981; --p-cover:linear-gradient(135deg,#047857,#064e3b);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">Emerald Dark</span>
+      <span class="theme-mode">Dark</span>
+    </div>
+    <div class="theme-tile">
+      <div class="tp" style="--p-bg:#1c120c; --p-card:rgba(43,28,20,0.85); --p-text:#fffbeb; --p-sub:#fde68a; --p-acc:#f59e0b; --p-cover:linear-gradient(135deg,#d97706,#b45309);" aria-hidden="true">
+        <div class="tp-cover"></div>
+        <div class="tp-card">
+          <span class="tp-avatar"></span>
+          <span class="tp-line"></span>
+          <span class="tp-line sub"></span>
+          <span class="tp-pill"></span>
+          <span class="tp-pill"></span>
+        </div>
+      </div>
+      <span class="theme-name">Sunset Amber</span>
+      <span class="theme-mode">Dark</span>
+    </div>
+  </div>
+  <div class="chips-row" style="margin: 18px 0 0; justify-content: flex-start;">
+    <span class="chip">Your own cover photo and profile photo</span>
+    <span class="chip">List or app-grid layout</span>
+    <span class="chip">Brand or theme icon colors</span>
+  </div>
+</section>
+
 <section class="section" id="how">
   <div class="section-header">
-    <span class="section-tag">04 / How it works</span>
+    <span class="section-tag">05 / How it works</span>
     <h2 class="section-title">Live in three steps</h2>
     <p class="section-lead">Most people finish before their coffee gets cold.</p>
   </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
   <div class="steps">
     <div class="step">
       <span class="step-num">1</span>
@@ -936,7 +1156,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
 
 <section class="section" id="compare">
   <div class="section-header">
-    <span class="section-tag">05 / Comparison</span>
+    <span class="section-tag">06 / Comparison</span>
     <h2 class="section-title">LYNQ vs a paper card</h2>
   </div>
   <div class="compare-card">
@@ -954,9 +1174,40 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
   </div>
 </section>
 
+<section class="section" id="different">
+  <div class="section-header">
+    <span class="section-tag">07 / What makes us different</span>
+    <h2 class="section-title">Local, limited and built to last</h2>
+    <p class="section-lead">We are not trying to be the biggest. We are trying to be the card you can still count on years from now.</p>
+  </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
+  <div class="grid">
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+      <h3>Based in Davao City</h3>
+      <p>Similar businesses are mostly based in Manila, and an order from them can take up to 7 days or more just to reach your address. They can also be hard to reach. LYNQ is based in Davao City, and we prioritize our fellow Davao City residents as our target market.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+      <h3>Limited cards, on purpose</h3>
+      <p>Similar businesses often have no limit on how many cards they sell. We sell only a limited number of cards, for the sake of safety and so that these cards last for many years. For now, our limit is 800 to 900 cards.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <h3>Built for the long run</h3>
+      <p>You may wonder why we do not use a .com or .ph domain. We are thinking about the long run. If we developers ever became inactive in selling and could not afford to pay the subscriptions for those domains, your product would still stay active, because it runs on the free features of our database and website hosting.</p>
+    </div>
+    <div class="tech-card">
+      <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+      <h3>A real person behind it</h3>
+      <p>LYNQ was founded and developed by Rex Belli R. Batenga, RCrim. His contact details are provided in the sample portfolio at the top of this page.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="security">
   <div class="section-header">
-    <span class="section-tag">06 / Security</span>
+    <span class="section-tag">08 / Security</span>
     <h2 class="section-title">Lost your card? We have you covered.</h2>
     <p class="section-lead">Worried that someone picked up your card and could get into your socials? Here is how LYNQ keeps you protected.</p>
   </div>
@@ -964,6 +1215,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
     <h3>In case of emergency</h3>
     <p>If you lose your card and are anxious that someone who picked it up might access your socials, report it to us as soon as possible. We will remove the information attached to your card, and in our database, right away. We also do not print the word “NFC” on the card, so a thief or finder will not easily figure out that it can be tapped on a phone.</p>
   </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
   <div class="grid">
     <div class="tech-card">
       <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -993,9 +1245,10 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
 
 <section class="section" id="about">
   <div class="section-header">
-    <span class="section-tag">07 / Under the hood</span>
+    <span class="section-tag">09 / Under the hood</span>
     <h2 class="section-title">How LYNQ works behind the scenes</h2>
   </div>
+  <p class="swipe-hint">Swipe to see more &rarr;</p>
   <div class="grid">
     <div class="tech-card">
       <h3>NFC Chip Integration</h3>
@@ -1014,7 +1267,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
 
 <section class="section" id="setup">
   <div class="section-header">
-    <span class="section-tag">08 / Questions</span>
+    <span class="section-tag">10 / Questions</span>
     <h2 class="section-title">Questions, setup &amp; troubleshooting</h2>
   </div>
 
@@ -1079,7 +1332,7 @@ footer a { color: var(--accent); text-decoration: underline; cursor: pointer; }
 
 <section class="section" id="local">
   <div class="section-header">
-    <span class="section-tag">09 / Pricing</span>
+    <span class="section-tag">11 / Pricing</span>
     <h2 class="section-title">Product Pricing</h2>
   </div>
 
