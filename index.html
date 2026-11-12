@@ -803,6 +803,15 @@ html { scroll-padding-top: 84px; }
   .more-info summary { padding: 14px 16px; }
   .mi-body { padding: 0 16px 16px; }
 }
+
+/* ---------- Features dropdown ---------- */
+.feature-details { margin-top: 0; }
+.feature-details .mi-body { padding: 4px 20px 20px; }
+.feature-details .feature-group:first-child { margin-top: 0; }
+@media (max-width: 640px) {
+  .feature-details { margin-top: 0; }
+  .feature-details .mi-body { padding: 2px 16px 16px; }
+}
 </style>
 </head>
 <body data-theme="dark">
@@ -979,7 +988,15 @@ html { scroll-padding-top: 84px; }
     <h2 class="section-title">Everything your page can hold</h2>
     <p class="section-lead">Fill in only what you want. Your page shows just the sections you use.</p>
   </div>
-  <div class="feature-panel">
+  <details class="more-info feature-details" id="featureDetails">
+    <summary>
+      <span class="mi-text">
+        <strong>See all features</strong>
+        <small>Links, contact buttons, about you, payment QR, themes and more. Tap to open.</small>
+      </span>
+    </summary>
+    <div class="mi-body">
+
     <div class="feature-group">
       <h3>Links and contact</h3>
       <div class="chips-row">
@@ -1025,7 +1042,8 @@ html { scroll-padding-top: 84px; }
         <span class="chip">Brand or theme icon colors</span>
       </div>
     </div>
-  </div>
+    </div>
+  </details>
 </section>
 
 <section class="section" id="themes">
@@ -1416,6 +1434,7 @@ html { scroll-padding-top: 84px; }
 
       <h4>Not sure? Check it on your phone</h4>
       <p><b>Android:</b> open Settings and search for “NFC”. If you see it, your phone has NFC. Turn it on before tapping.</p>
+      <p><b>Budget phones:</b> many entry-level Android phones, such as most Infinix Smart, Tecno Pop, itel A-series and keypad phones, do not have NFC.</p>
       <p><b>iPhone:</b> iPhone XS and newer open LYNQ cards automatically. iPhone 7, 8 and X need a manual toggle in Control Center first.</p>
 
       <p class="fine">This list is a guide based on the manufacturers’ specs. Some regional versions of the same phone differ, so when you see “Depends on version”, check your phone’s settings or box. Don’t see your phone? Contact us at <span class="js-contact">[YOUR CONTACT HERE]</span> and we will check for you.</p>
@@ -1625,6 +1644,70 @@ const PHONE_DATA = [
     n: ['A70','A60s','A60','A50','A05s','P40'] }
 ];
 
+
+/* ---------- More budget and entry-level phones ---------- */
+const EXTRA_PHONES = [
+  { brand: 'Infinix',
+    n: ['Smart 3','Smart 4','Smart 5','Smart 6 Plus','Smart 7 HD','Smart 8 HD','Smart 8 Plus','Smart 8 Pro','Smart 9 HD','Hot 8','Hot 9','Hot 9 Play','Hot 10 Play'],
+    v: ['Hot 10','Hot 10S','Hot 10i','Hot 11','Hot 11S','Hot 12','Hot 12i','Hot 12 Play','Hot 20S','Hot 20i','Hot 20 Play','Hot 20 5G','Hot 30i','Hot 30 Play','Hot 30 5G','Hot 40i','Hot 50i','Hot 50 Pro+','Hot 60i','Note 8','Note 10','Note 11','Note 11S','Note 12','Note 12 Pro','Note 12 VIP','Note 30 VIP','Note 30 5G','Note 50 Pro','Zero X','Zero 20','Zero 8'] },
+  { brand: 'Tecno',
+    y: ['Phantom X'],
+    n: ['Pop 5','Pop 6','Pop 9','Spark Go 2022','Spark 6 Go'],
+    v: ['Spark 7','Spark 7 Pro','Spark 8','Spark 8C','Spark 8P','Spark 8 Pro','Spark 9','Spark 9 Pro','Spark 10C','Spark 10 5G','Spark 20C','Spark 30C','Spark 30','Spark 40','Camon 17','Camon 17 Pro','Camon 18','Camon 18 Premier','Camon 19','Camon 19 Pro','Camon 20 Premier','Pova','Pova 2','Pova 3','Pova 4','Pova 4 Pro','Pova 5','Pova 6 Neo'] },
+  { brand: 'itel',
+    n: ['A04','A18','A27','A33','A48','A49','A56','A58','P40+','S18','S23','Vision 1','Vision 2','Vision 3'] },
+  { brand: 'Realme',
+    n: ['C2','C3','C11','C12','C15','C20','C21','C21Y','C25','C25Y','C25s','C30','C30s','C33','C35','Narzo 50A','Narzo 50i','Narzo 30A','Narzo N53','5i'],
+    v: ['6','6i','7','7i','8','8i','9i','9 Pro','10','10 Pro','Narzo 50','Narzo 50 Pro','Narzo 70'] },
+  { brand: 'Redmi',
+    n: ['6A','7A','8A'],
+    v: ['Note 8','Note 8 Pro','Note 9','Note 9 Pro','Note 10S','Note 10 5G','9','9C','9T','10','10C'] },
+  { brand: 'POCO',
+    y: ['X3 NFC','X3 Pro'],
+    n: ['C31','C40','C51','C55','C61'],
+    v: ['X3 GT','X4 Pro 5G','M3','M4 Pro','M5','M5s'] },
+  { brand: 'Samsung',
+    n: ['Galaxy A01','Galaxy A01 Core','Galaxy A02','Galaxy A02s','Galaxy A03 Core','Galaxy A04e','Galaxy A10','Galaxy A10s','Galaxy A11','Galaxy J2 Prime','Galaxy J2 Core'],
+    v: ['Galaxy A21s','Galaxy A31','Galaxy M13','Galaxy M14 5G','Galaxy M15 5G','Galaxy J7 Prime'] },
+  { brand: 'Vivo',
+    n: ['Y01','Y02s','Y11','Y12','Y12s','Y15','Y17','Y19','Y20s','Y21s','Y22s','Y30','Y33s','Y35','Y51','Y91','Y91C','Y93','Y95'] },
+  { brand: 'Oppo',
+    n: ['A1k','A3s','A5s','A12','A15s','A16K','A17K','A31','A33','A53'],
+    v: ['A54','A55','A57','A74','A76','A77'] },
+  { brand: 'Honor',
+    n: ['X5 Plus','X6b','X7','X7a'],
+    v: ['X7b','X8','X8a','X9c'] },
+  { brand: 'Motorola',
+    n: ['Moto E7 Power','Moto E20','Moto E30','Moto E32','Moto E40'],
+    v: ['Moto G13','Moto G22','Moto G23','Moto G24','Moto G32','Moto G42','Moto G52'] },
+  { brand: 'Nokia',
+    n: ['C01 Plus','C02','C12','C21','C22','C32','105','106','110','150'],
+    v: ['G10','G11','G20','G21','G22','G42 5G','G60 5G'],
+    tags: { '105': 'Keypad phone', '106': 'Keypad phone', '110': 'Keypad phone', '150': 'Keypad phone' } },
+  { brand: 'Cherry Mobile',
+    v: ['Flare series','Aqua series','Omega series'],
+    tags: { 'Flare series': 'Most models have no NFC', 'Aqua series': 'Most models have no NFC', 'Omega series': 'Most models have no NFC' },
+    generic: ['Flare series','Aqua series','Omega series'] }
+];
+EXTRA_PHONES.forEach(e => {
+  let b = PHONE_DATA.find(x => x.brand === e.brand);
+  if (!b) { b = { brand: e.brand }; PHONE_DATA.push(b); }
+  const have = new Set(['y','v','n'].flatMap(st => b[st] || []));
+  ['y','v','n'].forEach(st => (e[st] || []).forEach(name => {
+    if (have.has(name)) return;
+    (b[st] = b[st] || []).push(name);
+    have.add(name);
+  }));
+  b.tags = Object.assign(b.tags || {}, e.tags || {});
+  b.generic = (b.generic || []).concat(e.generic || []);
+});
+// most common budget brands first in the brand chips
+const BRAND_ORDER = ['Samsung','Apple','Infinix','Tecno','itel','Realme','Redmi','Xiaomi','POCO','Vivo','Oppo','Honor','Huawei','Motorola','Nokia','Cherry Mobile','Google','OnePlus','Sony','Asus','Nothing'];
+PHONE_DATA.sort((a, b) => {
+  const ia = BRAND_ORDER.indexOf(a.brand), ib = BRAND_ORDER.indexOf(b.brand);
+  return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+});
+
 const NFC_WORD = { y: 'Compatible', n: 'Not compatible', v: 'Depends on version' };
 const norm = t => t.toLowerCase().replace(/\+/g, 'plus').replace(/[^a-z0-9]/g, '');
 
@@ -1636,12 +1719,13 @@ PHONE_DATA.forEach(b => {
       brand: b.brand, name, display, status: st,
       note: (b.notes || {})[name] || '',
       tag: (b.tags || {})[name] || '',
+      generic: (b.generic || []).includes(name),
       key: norm(b.brand === 'Apple' ? 'Apple ' + name : display)
     });
   }));
 });
 
-const POPULAR = ['iPhone 16','Samsung Galaxy S25 Ultra','Samsung Galaxy A56 5G','Redmi Note 14 Pro+ 5G','Oppo Reno 13 Pro','Vivo Y18','Realme C55','Infinix Smart 8','Tecno Spark Go 2024','Samsung Galaxy A06']
+const POPULAR = ['iPhone 16','Samsung Galaxy S25 Ultra','Infinix Smart 8','Tecno Spark Go 2024','itel A70','Realme C55','Redmi 12','Vivo Y18','Samsung Galaxy A06','Oppo A18','Infinix Hot 40i']
   .map(n => PHONES.find(p => p.display.toLowerCase() === n.toLowerCase())).filter(Boolean);
 
 const checkOverlay = document.getElementById('checkOverlay');
@@ -1716,6 +1800,9 @@ function choosePhone(p) {
     msg = '<p>' + p.display + ' can open LYNQ cards. ' +
       (p.brand === 'Apple' && !p.note ? 'Hold the card against the top back of your iPhone and your page opens.' : p.brand === 'Apple' ? 'Hold the card against the top back of your iPhone.' : 'Make sure NFC is turned on in Settings, then hold the card against the back of your phone.') + '</p>' +
       (p.note ? '<p>' + p.note + '</p>' : '');
+  } else if (p.status === 'v' && p.generic) {
+    msg = '<p>Most ' + p.brand + ' phones do not have NFC, but a few newer models might.</p>' +
+      '<p>To be sure, open Settings and search for \u201cNFC\u201d, or check the spec sheet. If there is no NFC option, the phone cannot tap a LYNQ card. Questions? Contact us at ' + CONTACT_TEXT + '.</p>';
   } else if (p.status === 'v') {
     msg = '<p>Some versions of the ' + p.display + ' have NFC and others do not, depending on the region or model number.</p>' +
       '<p>To be sure, open Settings and search for \u201cNFC\u201d, or check the spec sheet on the box. Questions? Contact us at ' + CONTACT_TEXT + '.</p>';
@@ -1773,6 +1860,10 @@ document.getElementById('checkCloseBtn').addEventListener('click', closeCheck);
 document.getElementById('checkDoneBtn').addEventListener('click', closeCheck);
 checkOverlay.addEventListener('click', e => { if (e.target === checkOverlay) closeCheck(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && checkOverlay.classList.contains('open')) closeCheck(); });
+
+/* ---------- Features dropdown: open on larger screens, closed on phones ---------- */
+const featureDetails = document.getElementById('featureDetails');
+if (featureDetails && window.matchMedia('(min-width: 641px)').matches) featureDetails.open = true;
 </script>
 
 </body>
